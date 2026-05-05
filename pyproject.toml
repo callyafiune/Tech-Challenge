@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tech-challenge-churn"
+version = "0.1.0"
+description = "Rede neural para previsão de churn com pipeline profissional end-to-end."
+readme = "README.md"
+requires-python = "==3.13.*"
+dependencies = [
+  "fastapi==0.136.0",
+  "joblib==1.5.3",
+  "matplotlib==3.10.8",
+  "mlflow==3.11.1",
+  "numpy==2.4.4",
+  "pandas==2.3.3",
+  "pandera==0.31.1",
+  "pydantic==2.13.2",
+  "pytest==9.0.3",
+  "python-json-logger==4.1.0",
+  "ruff==0.15.11",
+  "scikit-learn==1.8.0",
+  "seaborn==0.13.2",
+  "torch==2.11.0",
+  "uvicorn==0.44.0",
+]
+
+[project.scripts]
+generate-eda = "tech_challenge_churn.reports.eda:main"
+generate-data-quality = "tech_challenge_churn.reports.data_quality:main"
+train-baselines = "tech_challenge_churn.models.baselines:main"
+train-mlp = "tech_challenge_churn.models.train_mlp:main"
+train-mlp-selected = "tech_challenge_churn.models.train_mlp_selected:main"
+train-feature-ablation = "tech_challenge_churn.models.feature_ablation:main"
+promote-challenger = "tech_challenge_churn.models.promote_challenger:main"
+train-sklearn-optimization = "tech_challenge_churn.models.sklearn_optimization:main"
+train-sklearn-tuning = "tech_challenge_churn.models.sklearn_tuning:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*.ipynb" = ["ALL"]

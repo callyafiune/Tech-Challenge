@@ -1,0 +1,80 @@
+# Ambientes locais
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+build/
+dist/
+
+# Notebooks e ferramentas locais
+.ipynb_checkpoints/
+.serena/
+.vscode/
+.idea/
+
+# Logs e arquivos temporarios
+*.log
+*.tmp
+*.bak
+tmp/
+temp/
+
+# Materiais locais de referencia
+*.pdf.html
+*.pptx
+*.docx
+
+# Sistema operacional
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Dados locais
+Telco-Customer-Churn.csv
+data/*
+!data/.gitkeep
+
+# Artefatos de modelos treinados
+models/*
+!models/.gitkeep
+*.joblib
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.onnx
+
+# Tracking e artefatos de experimentos
+mlruns/
+mlartifacts/
+mlflow.db
+wandb/
+runs/
+lightning_logs/
+
+# Saidas geradas por relatorios e avaliacoes
+reports/tmp/
+reports/**/search/
+reports/**/*.png
+reports/**/*.jpg
+reports/**/*.jpeg
+reports/**/*.svg
+reports/**/*.pdf
+reports/**/classification_report.txt
+reports/**/*_summary.json
