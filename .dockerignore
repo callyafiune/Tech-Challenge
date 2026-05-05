@@ -1,0 +1,63 @@
+# Controle de versão e metadados locais
+.git/
+.gitignore
+.dockerignore
+
+# Ambientes locais
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Python e ferramentas locais
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+build/
+dist/
+.serena/
+.vscode/
+.idea/
+
+# Dados e rastreamento local de experimentos
+Telco-Customer-Churn.csv
+data/*
+!data/.gitkeep
+mlruns/
+mlartifacts/
+mlflow.db
+wandb/
+runs/
+lightning_logs/
+
+# Mantém somente o modelo MLP necessário para inferência da API.
+models/*
+!models/mlp/
+!models/mlp/**
+
+# Artefatos analíticos e materiais de trabalho não necessários no container de serving
+notebooks/
+reports/
+docs/
+tests/
+*.pdf.html
+*.pptx
+*.docx
+
+# Sistema operacional e temporários
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+*.tmp
+*.bak
+tmp/
+temp/
