@@ -13,7 +13,8 @@ competitivo:
 - Threshold de negócio: `0.18`.
 
 Para uso operacional futuro, o melhor candidato tabular é o **RandomForest sem `gender`**, pois teve
-o melhor F1 médio na rodada de ablação e foi promovido formalmente como challenger operacional:
+o melhor F1 médio na rodada de ablação, foi confirmado na rodada de refinamento sem vazamento e foi
+promovido formalmente como challenger operacional:
 
 - AUC-ROC CV: `0.8452`.
 - PR-AUC CV: `0.6558`.
@@ -23,6 +24,10 @@ o melhor F1 médio na rodada de ablação e foi promovido formalmente como chall
 - Promoção formal: `docs/promocao_challenger.md`.
 - MLflow run de promoção: `e04eb2c506144cefb37bbd20aa17797f`.
 - Registered model: `telco-churn-random-forest-challenger`, alias `challenger`.
+- Refinamento adicional: `docs/f1_refinement_report.md`, sem novo ganho de F1 em threshold 0,5 e
+  sem promoção adicional.
+- Comparação estatística: `docs/model_comparison_statistical.md`, sem evidência suficiente para
+  trocar a recomendação por pequenas diferenças de média em 5 folds.
 
 ## Feature Set Recomendado
 
@@ -39,6 +44,10 @@ Justificativa:
 - `Partner` e `Dependents` podem ser resumidos sem perda relevante.
 - Serviços de proteção ainda carregam sinal útil; removê-los derrubou F1 e PR-AUC.
 - Compactação agressiva reduziu demais o desempenho.
+- Interações adicionais de contrato, pagamento, cobrança e proteção aumentaram as features finais
+  de `79` para até `172` e não superaram o F1 da referência.
+- A comparação pareada por fold reforçou uma decisão conservadora: manter a recomendação atual e
+  não promover os candidatos do refinamento.
 
 ## Recomendação de Negócio
 
@@ -61,12 +70,15 @@ Na apresentação, a narrativa recomendada é:
 > Em paralelo, os experimentos Scikit-Learn e a ablação mostraram que modelos tabulares são muito
 > competitivos neste dataset. O melhor challenger operacional foi um RandomForest sem `gender`,
 > com F1 médio de `0.6402`, reforçando a decisão de remover atributos sensíveis quando eles não
-> adicionam valor preditivo.
+> adicionam valor preditivo. Uma rodada final de refinamento sem vazamento testou novas interações
+> e confirmou que elas não justificam aumentar a complexidade do pipeline.
 
 ## Próximos Passos
 
 - Retreinar uma versão `v2` da MLP sem `gender`.
 - Testar a MLP com `has_family_context` no lugar de `Partner` e `Dependents`.
 - Validar o challenger não neural em shadow mode antes de qualquer troca do modelo principal.
-- Toda nova promoção deve repetir o protocolo usado em `docs/promocao_challenger.md`.
+- Não promover os candidatos da rodada de refinamento de F1.
+- Repetir a comparação estatística por fold quando novos candidatos forem treinados.
+- Toda promoção futura deve repetir o protocolo usado em `docs/promocao_challenger.md`.
 - Monitorar drift de dados e queda de performance antes de usar em campanhas reais.

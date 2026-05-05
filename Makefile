@@ -1,6 +1,6 @@
 PYTHON ?= .venv/Scripts/python.exe
 
-.PHONY: setup lint test check eda data-quality train-baselines train-mlp train-mlp-selected train-feature-ablation promote-challenger train-sklearn-optimization train-sklearn-tuning api mlflow-ui
+.PHONY: setup lint test check eda data-quality train-baselines train-mlp train-mlp-selected train-feature-ablation promote-challenger train-sklearn-optimization train-sklearn-tuning train-f1-refinement compare-models api mlflow-ui
 
 setup:
 	$(PYTHON) -m pip install -e .
@@ -39,6 +39,12 @@ train-sklearn-optimization:
 
 train-sklearn-tuning:
 	$(PYTHON) -m tech_challenge_churn.models.sklearn_tuning
+
+train-f1-refinement:
+	$(PYTHON) -m tech_challenge_churn.models.f1_refinement
+
+compare-models:
+	$(PYTHON) -m tech_challenge_churn.reports.model_comparison
 
 api:
 	$(PYTHON) -m uvicorn tech_challenge_churn.api.app:app --reload

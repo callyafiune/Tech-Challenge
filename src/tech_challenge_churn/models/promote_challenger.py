@@ -15,7 +15,7 @@ import pandas as pd
 from mlflow.tracking import MlflowClient
 from sklearn.model_selection import train_test_split
 
-from tech_challenge_churn.config import DATA_PATH, MLRUNS_DIR, MODELS_DIR, RANDOM_SEED
+from tech_challenge_churn.config import DATA_PATH, MLFLOW_TRACKING_URI, MODELS_DIR, RANDOM_SEED
 from tech_challenge_churn.data.load import compute_file_hash, read_raw_data, split_features_target
 from tech_challenge_churn.data.schema import validate_telco_schema
 from tech_challenge_churn.evaluation.business import (
@@ -233,7 +233,7 @@ def promote_random_forest_challenger() -> dict[str, Any]:
     """Promove formalmente o RandomForest sem gender como challenger operacional."""
     configure_logging()
     set_global_seed(RANDOM_SEED)
-    mlflow.set_tracking_uri(MLRUNS_DIR.as_uri())
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     mlflow.set_experiment(EXPERIMENT_NAME)
 
     data = validate_telco_schema(read_raw_data(DATA_PATH))

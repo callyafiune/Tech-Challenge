@@ -26,7 +26,13 @@ from sklearn.metrics import (
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.pipeline import Pipeline
 
-from tech_challenge_churn.config import DATA_PATH, MLRUNS_DIR, MODELS_DIR, RANDOM_SEED, REPORTS_DIR
+from tech_challenge_churn.config import (
+    DATA_PATH,
+    MLFLOW_TRACKING_URI,
+    MODELS_DIR,
+    RANDOM_SEED,
+    REPORTS_DIR,
+)
 from tech_challenge_churn.data.load import compute_file_hash, read_raw_data, split_features_target
 from tech_challenge_churn.data.schema import validate_telco_schema
 from tech_challenge_churn.evaluation.business import (
@@ -448,7 +454,7 @@ def run_sklearn_optimization_experiments() -> pd.DataFrame:
     """Executa todos os experimentos permitidos e registra no MLflow."""
     configure_logging()
     set_global_seed(RANDOM_SEED)
-    mlflow.set_tracking_uri(MLRUNS_DIR.as_uri())
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     mlflow.set_experiment(EXPERIMENT_NAME)
 
     data = validate_telco_schema(read_raw_data(DATA_PATH))

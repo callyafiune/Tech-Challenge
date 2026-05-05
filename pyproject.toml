@@ -36,6 +36,8 @@ train-feature-ablation = "tech_challenge_churn.models.feature_ablation:main"
 promote-challenger = "tech_challenge_churn.models.promote_challenger:main"
 train-sklearn-optimization = "tech_challenge_churn.models.sklearn_optimization:main"
 train-sklearn-tuning = "tech_challenge_churn.models.sklearn_tuning:main"
+train-f1-refinement = "tech_challenge_churn.models.f1_refinement:main"
+compare-models = "tech_challenge_churn.reports.model_comparison:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

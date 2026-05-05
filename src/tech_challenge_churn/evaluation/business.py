@@ -39,9 +39,15 @@ def compute_business_metrics(
 
     saved_value = float(expected_customer_value[true_positive].sum())
     campaign_cost = float(offer_cost[selected].sum())
+    false_positive_cost = float(offer_cost[false_positive].sum())
     missed_value = float(expected_customer_value[false_negative].sum())
     incremental_savings = saved_value - campaign_cost
     operational_net_value = incremental_savings - missed_value
+    total_error_cost = false_positive_cost + missed_value
+    if assumptions.offer_cost_multiplier > 0:
+        fn_fp_unit_cost_ratio = assumptions.retained_months / assumptions.offer_cost_multiplier
+    else:
+        fn_fp_unit_cost_ratio = float("inf")
 
     return {
         "business_threshold": float(threshold),
@@ -50,6 +56,11 @@ def compute_business_metrics(
         "business_fn": float(false_negative.sum()),
         "business_campaign_cost": campaign_cost,
         "business_saved_value": saved_value,
+        "business_missed_value": missed_value,
+        "business_false_positive_cost": false_positive_cost,
+        "business_false_negative_cost": missed_value,
+        "business_total_error_cost": float(total_error_cost),
+        "business_fn_fp_unit_cost_ratio": float(fn_fp_unit_cost_ratio),
         "business_incremental_savings": float(incremental_savings),
         "business_operational_net_value": float(operational_net_value),
     }
@@ -82,6 +93,36 @@ def find_best_business_threshold(
 
     if best_metrics is None:
         raise RuntimeError("Nao foi possivel calcular o melhor threshold de negocio.")
+    return best_threshold, best_metrics
+
+
+def find_best_cost_threshold(
+    y_true: np.ndarray,
+    y_proba: np.ndarray,
+    monthly_charges: pd.Series | np.ndarray,
+    assumptions: BusinessAssumptions | None = None,
+) -> tuple[float, dict[str, float]]:
+    """Encontra o threshold que minimiza o custo total de FP e FN."""
+    best_threshold = 0.5
+    best_metrics: dict[str, float] | None = None
+    best_cost = float("inf")
+
+    for threshold in np.linspace(0.05, 0.95, 91):
+        current_metrics = compute_business_metrics(
+            y_true,
+            y_proba,
+            monthly_charges,
+            threshold,
+            assumptions,
+        )
+        current_cost = current_metrics["business_total_error_cost"]
+        if current_cost < best_cost:
+            best_threshold = float(threshold)
+            best_metrics = current_metrics
+            best_cost = current_cost
+
+    if best_metrics is None:
+        raise RuntimeError("Nao foi possivel calcular o melhor threshold de custo.")
     return best_threshold, best_metrics
 
 

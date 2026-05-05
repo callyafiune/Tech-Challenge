@@ -6,6 +6,7 @@ from tech_challenge_churn.evaluation.business import (
     BusinessAssumptions,
     compute_business_metrics,
     find_best_business_threshold,
+    find_best_cost_threshold,
     lift_at_top_fraction,
 )
 
@@ -27,6 +28,10 @@ def test_business_metrics_returns_expected_counts() -> None:
     assert metrics["business_tp"] == 1
     assert metrics["business_fp"] == 1
     assert metrics["business_fn"] == 1
+    assert metrics["business_false_positive_cost"] == 50.0
+    assert metrics["business_false_negative_cost"] == 960.0
+    assert metrics["business_total_error_cost"] == 1010.0
+    assert metrics["business_fn_fp_unit_cost_ratio"] == 12.0
     assert metrics["business_incremental_savings"] == 1050.0
 
 
@@ -42,3 +47,20 @@ def test_business_threshold_and_lift_are_valid() -> None:
     assert 0.05 <= threshold <= 0.95
     assert metrics["business_incremental_savings"] > 0
     assert lift >= 1.0
+
+
+def test_find_best_cost_threshold_minimizes_false_positive_and_negative_cost() -> None:
+    """Valida threshold orientado ao custo total de FP e FN."""
+    y_true = np.array([1, 0, 1, 0])
+    y_proba = np.array([0.9, 0.8, 0.4, 0.1])
+    monthly_charges = np.array([100.0, 50.0, 80.0, 40.0])
+
+    threshold, metrics = find_best_cost_threshold(
+        y_true,
+        y_proba,
+        monthly_charges,
+        assumptions=BusinessAssumptions(retained_months=12, offer_cost_multiplier=1),
+    )
+
+    assert 0.05 <= threshold <= 0.95
+    assert metrics["business_total_error_cost"] <= 1010.0

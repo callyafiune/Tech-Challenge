@@ -30,7 +30,13 @@ Por isso, o numero que deve entrar na comparacao final e o F1 medio dos finalist
 CV. A busca testou HGB, RandomForest, ExtraTrees, stacking e SVC calibrado, com e sem selecao de
 features (`SelectKBest` por ANOVA F ou informacao mutua).
 
+Uma rodada posterior de refinamento controlado adicionou interacoes Telco de contrato, cobranca,
+pagamento e protecao, mantendo a mesma regra de threshold interno. O melhor F1 em threshold 0,5
+continuou sendo o RandomForest sem `gender`, com `0.6402`; portanto, as interacoes novas nao foram
+promovidas para o pipeline principal.
+
 Artefatos:
 
 - `reports/sklearn_tuning/search_results.csv`
 - `reports/sklearn_tuning/final_cv_comparison.csv`
+- `reports/f1_refinement/comparison.csv`

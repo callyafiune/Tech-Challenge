@@ -45,13 +45,21 @@ A métrica de negócio é a economia incremental estimada da campanha de retenç
 
 ```text
 economia_incremental = valor_salvo_em_TP - custo_da_campanha_em_TP_e_FP
+custo_total_erro = custo_dos_FP + custo_dos_FN
 ```
 
 Premissas iniciais:
 
 - Valor salvo por cliente retido: `MonthlyCharges * 12`.
 - Custo da oferta: `MonthlyCharges * 1`.
-- Threshold ótimo: ponto de corte que maximiza a economia incremental no conjunto validado.
+- Falso positivo: cliente acionado sem churn real, gerando custo de oferta e contato.
+- Falso negativo: cliente com churn real que não foi acionado, gerando perda potencial de receita.
+- Razão inicial de custo FN/FP: aproximadamente `12x`, antes de ajustes por margem, LTV e aceite de
+  oferta.
+- Threshold ótimo: ponto de corte que maximiza a economia incremental ou minimiza o custo total de
+  FP e FN no conjunto validado.
+- Peso econômico no treino: usar apenas como experimento controlado; a decisão principal deve ser
+  feita pelo threshold para preservar calibração das probabilidades.
 
 ## SLOs Iniciais
 

@@ -11,8 +11,11 @@
 | ML Canvas | Concluído | `docs/ml_canvas.md` |
 | Baselines Scikit-Learn | Concluído | `src/tech_challenge_churn/models/baselines.py` |
 | MLflow com histórico de experimentos | Concluído | `mlruns/` |
+| Tracking MLflow configurável por ambiente | Concluído | `MLFLOW_TRACKING_URI`, `src/tech_challenge_churn/config.py` |
 | Experimentos Scikit-Learn otimizados registrados | Concluído | `telco-churn-sklearn-optimization`, `reports/sklearn_optimization/comparison.csv` |
 | Tuning avançado de F1 registrado | Concluído | `telco-churn-sklearn-tuning`, `reports/sklearn_tuning/final_cv_comparison.csv` |
+| Refinamento de F1 sem vazamento registrado | Concluído | `telco-churn-f1-refinement`, sem promoção adicional |
+| Comparação estatística por folds registrados | Concluído | `docs/model_comparison_statistical.md`, `reports/model_comparison/` |
 | MLP PyTorch | Concluído | `src/tech_challenge_churn/models/mlp.py` |
 | MLP com seleção de features registrada | Concluído | `telco-churn-mlp-feature-selection`, `reports/mlp_feature_selection/comparison.csv` |
 | Ablação de features registrada | Concluído | `telco-churn-feature-ablation`, `reports/feature_ablation/comparison.csv` |

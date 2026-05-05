@@ -27,7 +27,7 @@ from sklearn.pipeline import Pipeline
 
 from tech_challenge_churn.config import (
     DATA_PATH,
-    MLRUNS_DIR,
+    MLFLOW_TRACKING_URI,
     MODELS_DIR,
     RANDOM_SEED,
     REPORTS_DIR,
@@ -300,7 +300,7 @@ def run_all_baselines() -> dict[str, dict[str, float]]:
     """Carrega os dados, executa baselines e retorna o resumo comparativo."""
     configure_logging()
     set_global_seed(RANDOM_SEED)
-    mlflow.set_tracking_uri(MLRUNS_DIR.as_uri())
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     mlflow.set_experiment(EXPERIMENT_NAME)
 
     data = validate_telco_schema(read_raw_data(DATA_PATH))

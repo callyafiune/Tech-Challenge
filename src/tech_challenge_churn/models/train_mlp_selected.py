@@ -13,7 +13,7 @@ import pandas as pd
 from sklearn.feature_selection import SelectKBest, f_classif, mutual_info_classif
 from sklearn.model_selection import StratifiedKFold, train_test_split
 
-from tech_challenge_churn.config import DATA_PATH, MLRUNS_DIR, RANDOM_SEED, REPORTS_DIR
+from tech_challenge_churn.config import DATA_PATH, MLFLOW_TRACKING_URI, RANDOM_SEED, REPORTS_DIR
 from tech_challenge_churn.data.load import compute_file_hash, read_raw_data, split_features_target
 from tech_challenge_churn.data.schema import validate_telco_schema
 from tech_challenge_churn.evaluation.business import lift_at_top_fraction
@@ -260,7 +260,7 @@ def run_selected_mlp_experiments() -> pd.DataFrame:
     """Executa e registra as MLPs com entrada reduzida."""
     configure_logging()
     set_global_seed(RANDOM_SEED)
-    mlflow.set_tracking_uri(MLRUNS_DIR.as_uri())
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     mlflow.set_experiment(EXPERIMENT_NAME)
 
     data = validate_telco_schema(read_raw_data(DATA_PATH))

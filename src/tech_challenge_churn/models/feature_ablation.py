@@ -22,7 +22,7 @@ from tech_challenge_churn.config import (
     BASE_CATEGORICAL_FEATURES,
     BASE_NUMERIC_FEATURES,
     DATA_PATH,
-    MLRUNS_DIR,
+    MLFLOW_TRACKING_URI,
     RANDOM_SEED,
     REPORTS_DIR,
 )
@@ -475,7 +475,7 @@ def run_feature_ablation() -> pd.DataFrame:
     """Executa a bateria de ablação e registra todos os resultados."""
     configure_logging()
     set_global_seed(RANDOM_SEED)
-    mlflow.set_tracking_uri(MLRUNS_DIR.as_uri())
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     mlflow.set_experiment(EXPERIMENT_NAME)
 
     data = validate_telco_schema(read_raw_data(DATA_PATH))

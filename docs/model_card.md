@@ -8,7 +8,8 @@
 - Framework: PyTorch para a MLP, Scikit-Learn para pré-processamento.
 - Experimentos: MLflow local nos experimentos `telco-churn-baselines`, `telco-churn-mlp`,
   `telco-churn-sklearn-optimization`, `telco-churn-sklearn-tuning` e
-  `telco-churn-mlp-feature-selection`.
+  `telco-churn-mlp-feature-selection`, `telco-churn-feature-ablation` e
+  `telco-churn-f1-refinement`.
 
 ## Visão Geral
 
@@ -71,6 +72,7 @@ A MLP final usa:
 | RandomForest tunado | CV 5 folds, F1 em threshold 0,5 | 0.8457 | 0.6568 | 0.6395 |
 | RandomForest tunado | CV 5 folds, threshold interno | 0.8457 | 0.6568 | 0.6340 |
 | RandomForest sem `gender` | CV 5 folds, ablação de feature | 0.8452 | 0.6558 | 0.6402 |
+| RandomForest sem `gender` | CV 5 folds, refinamento sem vazamento | 0.8452 | 0.6558 | 0.6402 |
 | MLP + SelectKBest mutual_info k=50 | CV 5 folds, threshold interno | 0.8437 | 0.6479 | 0.6333 |
 
 Interpretação: a MLP supera claramente o baseline ingênuo e fica competitiva com a Regressão
@@ -80,7 +82,19 @@ Scikit-Learn, enquanto o stacking manteve a melhor PR-AUC. A MLP com seleção d
 o F1 médio da MLP em CV, mas não superou o RandomForest. Para produção, a escolha deve balancear
 métrica, simplicidade, interpretabilidade, custo de manutenção e aderência ao requisito da rede
 neural. A ablação de features indicou que `gender` pode ser removida sem perda de F1, reduzindo
-risco ético e complexidade.
+risco ético e complexidade. A rodada de refinamento sem vazamento confirmou essa escolha: novas
+interações aumentaram a dimensionalidade e não melhoraram o F1 médio em threshold 0,5.
+
+## Comparação Estatística
+
+Os principais modelos também foram comparados a partir das métricas por fold registradas no MLflow.
+Foi usado teste exato de sinais bicaudal e intervalo bootstrap de 95% para a diferença média de F1.
+Com apenas 5 folds, o teste tem baixo poder estatístico; por isso, pequenas diferenças de média não
+devem ser tratadas como evidência suficiente para troca automática de modelo.
+
+Resultado prático: a análise reforça manter a MLP como modelo neural principal e o RandomForest sem
+`gender` como challenger operacional. A rodada de refinamento de F1 não gerou evidência suficiente
+para promoção adicional. O relatório está em `docs/model_comparison_statistical.md`.
 
 ## Limitações
 
@@ -111,4 +125,4 @@ ações que afetem a experiência do cliente.
 - Execução: `make eda`, `make train-baselines`, `make train-mlp` e `make check`.
 - Auditoria de dados: `make data-quality`.
 - Experimentos adicionais: `make train-sklearn-optimization`, `make train-sklearn-tuning`,
-  `make train-mlp-selected`.
+  `make train-mlp-selected`, `make train-f1-refinement` e `make compare-models`.

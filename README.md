@@ -1,7 +1,44 @@
 # Tech Challenge - Churn Telco
 
+![Python](https://img.shields.io/badge/Python-3.13-3776AB)
+![PyTorch](https://img.shields.io/badge/PyTorch-MLP-EE4C2C)
+![MLflow](https://img.shields.io/badge/MLflow-tracking-0194E2)
+![FastAPI](https://img.shields.io/badge/FastAPI-API-009688)
+![Pytest](https://img.shields.io/badge/Pytest-passando-0A9EDC)
+
 Projeto end-to-end para previsão de churn em telecomunicações, com EDA, baselines Scikit-Learn,
 MLP em PyTorch, rastreamento com MLflow, API FastAPI, testes automatizados e documentação final.
+
+## Tecnologias Utilizadas
+
+- Python 3.13 para desenvolvimento do pipeline, API e automações.
+- Pandas e NumPy para manipulação e preparação dos dados.
+- Scikit-Learn para pré-processamento, baselines, modelos tabulares, seleção de features e métricas.
+- PyTorch para treinamento da MLP.
+- MLflow para rastreamento de experimentos, métricas, parâmetros e artefatos.
+- Pandera e Pydantic para validação de schema em dados e payloads da API.
+- FastAPI e Uvicorn para servir predições via endpoints `/health` e `/predict`.
+- Pytest e Ruff para testes automatizados e qualidade de código.
+- Matplotlib e Seaborn para visualizações de EDA, qualidade de dados e interpretação.
+- Docker para empacotamento e execução da API em instância.
+
+## Arquitetura
+
+```mermaid
+flowchart LR
+    dataset[Telco-Customer-Churn.csv] --> quality[Auditoria e EDA]
+    quality --> features[Pré-processamento e features]
+    features --> baselines[Baselines Scikit-Learn]
+    features --> mlp[MLP PyTorch]
+    features --> challengers[Modelos challenger]
+    baselines --> mlflow[MLflow tracking]
+    mlp --> mlflow
+    challengers --> mlflow
+    mlflow --> comparison[Comparação estatística]
+    mlp --> artifacts[Artefatos versionados localmente]
+    artifacts --> api[FastAPI /predict]
+    api --> monitoring[Logs e monitoramento]
+```
 
 ## Resultados
 
@@ -16,6 +53,7 @@ MLP em PyTorch, rastreamento com MLflow, API FastAPI, testes automatizados e doc
 | RandomForest tunado | CV 5 folds, F1 em threshold 0,5 | 0.8457 | 0.6568 | 0.6395 |
 | RandomForest tunado | CV 5 folds, threshold interno | 0.8457 | 0.6568 | 0.6340 |
 | RandomForest sem `gender` | CV 5 folds, ablação de feature | 0.8452 | 0.6558 | 0.6402 |
+| RandomForest sem `gender` | CV 5 folds, refinamento sem vazamento | 0.8452 | 0.6558 | 0.6402 |
 | MLP + SelectKBest mutual_info k=50 | CV 5 folds, threshold interno | 0.8437 | 0.6479 | 0.6333 |
 
 A MLP segue como modelo neural principal e foi retreinada após a auditoria rigorosa de qualidade
@@ -26,7 +64,9 @@ threshold fixo 0,5 e `0.6340` quando o threshold é escolhido internamente por f
 RandomForest. O stacking manteve a melhor PR-AUC entre os modelos Scikit-Learn. A comparação
 operacional deve priorizar também lift@20% e custo de retenção, não apenas F1. A rodada de ablação
 indicou que `gender` pode ser removida sem piora de F1 e que `Partner`/`Dependents` podem ser
-sumarizados em `has_family_context` com desempenho equivalente.
+sumarizados em `has_family_context` com desempenho equivalente. A rodada adicional de refinamento
+testou novas interações de contrato, cobrança, pagamento e proteção sem vazamento; nenhuma superou
+o RandomForest sem `gender` em F1 médio com threshold 0,5.
 
 ## Setup
 
@@ -77,6 +117,18 @@ Treinar tuning avançado de F1 no Scikit-Learn:
 
 ```powershell
 .\.venv\Scripts\python.exe -m tech_challenge_churn.models.sklearn_tuning
+```
+
+Rodar refinamento incremental de F1 sem vazamento:
+
+```powershell
+.\.venv\Scripts\python.exe -m tech_challenge_churn.models.f1_refinement
+```
+
+Comparar estatisticamente os principais modelos a partir dos folds registrados no MLflow:
+
+```powershell
+.\.venv\Scripts\python.exe -m tech_challenge_churn.reports.model_comparison
 ```
 
 Rodar ablação de features:
@@ -174,6 +226,13 @@ Abrir MLflow:
 
 Acesse `http://localhost:5000`.
 
+Por padrão, os scripts usam o tracking local em `mlruns/`. Para apontar para um servidor remoto ou
+compartilhado, defina a variável de ambiente antes da execução:
+
+```powershell
+$env:MLFLOW_TRACKING_URI = "http://localhost:5000"
+```
+
 ## Qualidade
 
 ```powershell
@@ -203,6 +262,8 @@ mlruns/                    Histórico local do MLflow ignorado pelo Git
 - `docs/deep_learning_report.md`
 - `docs/sklearn_optimization_report.md`
 - `docs/sklearn_tuning_report.md`
+- `docs/f1_refinement_report.md`
+- `docs/model_comparison_statistical.md`
 - `docs/mlp_feature_selection_report.md`
 - `docs/feature_ablation_report.md`
 - `docs/model_card.md`
