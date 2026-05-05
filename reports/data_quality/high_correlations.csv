@@ -1,0 +1,4 @@
+feature_1,feature_2,correlacao_pearson
+tenure,total_to_monthly_ratio,0.9989
+MonthlyCharges,avg_monthly_spend,0.9962
+num_services,num_protection_services,0.8547

@@ -1,0 +1,31 @@
+feature_codificada,correlacao_com_churn
+categorical__Contract_Month-to-month,0.4051
+categorical__internet_security_profile_Fiber optic__security_No__support_No,0.373
+numeric__electronic_check_month_to_month,0.3676
+categorical__payment_contract_profile_Electronic check__Month-to-month,0.3676
+numeric__fiber_without_security,0.3549
+numeric__month_to_month_low_tenure,0.3532
+numeric__tenure,-0.3522
+numeric__total_to_monthly_ratio,-0.352
+categorical__contract_tenure_segment_Month-to-month__0-6,0.3252
+categorical__tenure_bucket_0-6,0.3085
+categorical__InternetService_Fiber optic,0.308
+categorical__Contract_Two year,-0.3023
+categorical__PaymentMethod_Electronic check,0.3019
+categorical__tenure_bucket_49+,-0.2632
+categorical__contract_tenure_segment_Two year__49+,-0.2457
+numeric__senior_month_to_month,0.229
+categorical__internet_security_profile_No__security_No__support_No,-0.2279
+numeric__has_internet_service,0.2279
+categorical__InternetService_No,-0.2279
+numeric__TotalCharges,-0.1983
+numeric__MonthlyCharges,0.1934
+categorical__PaperlessBilling_Yes,0.1918
+numeric__avg_monthly_spend,0.1918
+categorical__Contract_One year,-0.1778
+numeric__num_protection_services,-0.1731
+categorical__OnlineSecurity_Yes,-0.1712
+categorical__payment_contract_profile_Credit card (automatic)__Two year,-0.165
+categorical__TechSupport_Yes,-0.1647
+categorical__Dependents_Yes,-0.1642
+categorical__internet_security_profile_DSL__security_Yes__support_Yes,-0.1549

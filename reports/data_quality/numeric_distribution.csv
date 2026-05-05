@@ -1,0 +1,9 @@
+feature,count,missing,mean,std,min,q1,median,q3,max,skew,kurtosis,simetria
+tenure,7043,0,32.3711,24.5595,0.0,9.0,29.0,55.0,72.0,0.2395,-1.3874,aproximadamente simetrica
+MonthlyCharges,7043,0,64.7617,30.09,18.25,35.5,70.35,89.85,118.75,-0.2205,-1.2573,aproximadamente simetrica
+TotalCharges,7043,0,2279.7343,2266.7945,0.0,398.55,1394.55,3786.6,8684.8,0.9632,-0.2286,assimetria moderada
+avg_monthly_spend,7032,11,64.7994,30.1859,13.775,36.1799,70.3732,90.1796,121.4,-0.2111,-1.2467,aproximadamente simetrica
+charges_delta,7032,11,-0.0012,2.6162,-18.9,-1.1602,0.0,1.1478,19.125,-0.1576,5.3616,aproximadamente simetrica
+total_to_monthly_ratio,7043,0,32.3734,24.5959,0.0,8.7172,28.6731,55.2445,79.3418,0.2451,-1.3792,aproximadamente simetrica
+num_services,7043,0,3.3629,2.062,0.0,1.0,3.0,5.0,8.0,0.4508,-0.8628,aproximadamente simetrica
+num_protection_services,7043,0,1.2657,1.2869,0.0,0.0,1.0,2.0,4.0,0.6246,-0.806,assimetria moderada

@@ -1,0 +1,17 @@
+coluna,valores_observados,valores_esperados,qtd_invalidos
+gender,"Female, Male","Female, Male",0
+Partner,"No, Yes","Yes, No",0
+Dependents,"No, Yes","Yes, No",0
+PhoneService,"No, Yes","Yes, No",0
+MultipleLines,"No, No phone service, Yes","No phone service, No, Yes",0
+InternetService,"DSL, Fiber optic, No","DSL, Fiber optic, No",0
+OnlineSecurity,"No, No internet service, Yes","No internet service, No, Yes",0
+OnlineBackup,"No, No internet service, Yes","No internet service, No, Yes",0
+DeviceProtection,"No, No internet service, Yes","No internet service, No, Yes",0
+TechSupport,"No, No internet service, Yes","No internet service, No, Yes",0
+StreamingTV,"No, No internet service, Yes","No internet service, No, Yes",0
+StreamingMovies,"No, No internet service, Yes","No internet service, No, Yes",0
+Contract,"Month-to-month, One year, Two year","Month-to-month, One year, Two year",0
+PaperlessBilling,"No, Yes","Yes, No",0
+PaymentMethod,"Bank transfer (automatic), Credit card (automatic), Electronic check, Mailed check","Electronic check, Mailed check, Bank transfer (automatic), Credit card (automatic)",0
+Churn,"No, Yes","Yes, No",0

@@ -1,0 +1,12 @@
+checagem,ocorrencias,interpretacao
+customerID duplicado,0,Deve ser zero para evitar repeticao de cliente.
+customerID vazio,0,Deve ser zero para manter rastreabilidade.
+TotalCharges vazio no raw,11,Esperado apenas para tenure=0 no dataset Telco.
+TotalCharges nulo com tenure=0,11,Caso sem cobranca acumulada; tratado como zero no pipeline.
+TotalCharges nulo com tenure>0,0,"Deve ser zero; se aparecer, exige investigacao."
+TotalCharges negativo,0,Deve ser zero.
+MonthlyCharges negativo,0,Deve ser zero.
+PhoneService=No com MultipleLines diferente de No phone service,0,Deve ser zero pela regra do dataset.
+PhoneService=Yes com MultipleLines=No phone service,0,Deve ser zero pela regra do dataset.
+InternetService=No com colunas dependentes inconsistentes,0,Deve ser zero pela regra do dataset.
+InternetService ativo com No internet service,0,Deve ser zero pela regra do dataset.

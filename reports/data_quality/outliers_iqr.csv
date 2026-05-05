@@ -1,0 +1,9 @@
+feature,limite_inferior,limite_superior,outliers_iqr,percentual
+charges_delta,-4.6221,4.6097,530,7.537
+tenure,-60.0,124.0,0,0.0
+TotalCharges,-4683.525,8868.675,0,0.0
+MonthlyCharges,-46.025,171.375,0,0.0
+avg_monthly_spend,-44.8196,171.1791,0,0.0
+total_to_monthly_ratio,-61.0736,125.0353,0,0.0
+num_services,-5.0,11.0,0,0.0
+num_protection_services,-3.0,5.0,0,0.0
