@@ -3,7 +3,16 @@
 import os
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+def _resolve_project_root() -> Path:
+    """Resolve a raiz do projeto em desenvolvimento local ou container."""
+    configured_root = os.getenv("TECH_CHALLENGE_PROJECT_ROOT")
+    if configured_root:
+        return Path(configured_root).expanduser().resolve()
+    return Path(__file__).resolve().parents[2]
+
+
+PROJECT_ROOT = _resolve_project_root()
 DATA_PATH = PROJECT_ROOT / "Telco-Customer-Churn.csv"
 MLRUNS_DIR = PROJECT_ROOT / "mlruns"
 MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", MLRUNS_DIR.as_uri())

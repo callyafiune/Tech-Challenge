@@ -169,8 +169,9 @@ Para alterar a porta interna usada pelo Uvicorn:
 docker run -d --restart unless-stopped -p 8080:8080 -e PORT=8080 --name tech-challenge-churn tech-challenge-churn:latest
 ```
 
-O container inclui `models/mlp` quando os artefatos existem localmente no momento do build. Se a
-imagem for construída em uma instância sem os artefatos treinados, monte o diretório de modelos:
+O container usa `TECH_CHALLENGE_PROJECT_ROOT=/app`, então a API procura os artefatos em
+`/app/models/mlp`. Os artefatos mínimos da MLP estão versionados em `models/mlp` e entram na imagem
+durante o build. Se quiser usar outro modelo treinado fora da imagem, monte o diretório de modelos:
 
 ```powershell
 docker run -d --restart unless-stopped -p 8000:8000 -v ${PWD}\models:/app/models --name tech-challenge-churn tech-challenge-churn:latest

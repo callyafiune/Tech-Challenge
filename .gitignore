@@ -53,12 +53,16 @@ data/*
 # Artefatos de modelos treinados
 models/*
 !models/.gitkeep
+!models/mlp/
 *.joblib
 *.pkl
 *.pickle
 *.pt
 *.pth
 *.onnx
+!models/mlp/model_config.json
+!models/mlp/model_state_dict.pt
+!models/mlp/preprocessor.joblib
 
 # Tracking e artefatos de experimentos
 mlruns/

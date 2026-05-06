@@ -1,0 +1,43 @@
+{
+  "config": {
+    "hidden_layers": "128-64-32",
+    "dropout": 0.3,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.0001,
+    "batch_size": 128,
+    "max_epochs": 80,
+    "patience": 10,
+    "seed": 42
+  },
+  "metrics": {
+    "roc_auc": 0.8462708930739621,
+    "pr_auc": 0.6580339812866269,
+    "brier_score": 0.1646602749824524,
+    "log_loss": 0.48740129187864234,
+    "precision": 0.5233160621761658,
+    "recall": 0.8101604278074866,
+    "f1": 0.6358866736621196,
+    "balanced_accuracy": 0.77174688057041,
+    "optimal_precision": 0.5329768270944741,
+    "optimal_recall": 0.7994652406417112,
+    "optimal_f1": 0.6395721925133689,
+    "optimal_balanced_accuracy": 0.7731625720116768,
+    "business_business_threshold": 0.18,
+    "business_business_tp": 366.0,
+    "business_business_fp": 633.0,
+    "business_business_fn": 8.0,
+    "business_business_campaign_cost": 71761.15,
+    "business_business_saved_value": 321482.39999999997,
+    "business_business_incremental_savings": 249721.24999999997,
+    "business_business_operational_net_value": 244624.84999999998,
+    "threshold_f1": 0.5099999999999999,
+    "threshold_business": 0.18,
+    "f1_optimal": 0.6395721925133689,
+    "best_epoch": 17.0,
+    "best_valid_pr_auc": 0.6580339812866269,
+    "input_dim": 80.0
+  },
+  "input_dim": 80,
+  "threshold_f1": 0.5099999999999999,
+  "threshold_business": 0.18
+}

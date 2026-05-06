@@ -72,8 +72,10 @@ docker build -t tech-challenge-churn:latest .
 docker run -d --restart unless-stopped -p 8000:8000 --name tech-challenge-churn tech-challenge-churn:latest
 ```
 
-Os artefatos `models/mlp` são incluídos quando existem localmente no momento do build. Em ambientes
-em que o modelo treinado é provisionado fora da imagem, montar o diretório de artefatos:
+A imagem define `TECH_CHALLENGE_PROJECT_ROOT=/app`, então a API procura os artefatos em
+`/app/models/mlp`. Os artefatos mínimos da MLP ficam versionados em `models/mlp` para permitir build
+direto em uma instância recém-clonada. Em ambientes em que o modelo treinado é provisionado fora da
+imagem, montar o diretório de artefatos:
 
 ```bash
 docker run -d --restart unless-stopped -p 8000:8000 \
