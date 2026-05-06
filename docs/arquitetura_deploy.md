@@ -65,7 +65,17 @@ Desvantagens:
 ## Execução com Docker
 
 O repositório possui `Dockerfile` para servir a API FastAPI em container. A imagem usa Python 3.13,
-instala o pacote local via `pyproject.toml`, executa Uvicorn sem modo reload e expõe a porta `8000`.
+instala somente as dependências de inferência, instala o pacote local sem dependências extras,
+executa Uvicorn sem modo reload e expõe a porta `8000`.
+
+Dependências incluídas na imagem de serving:
+
+- FastAPI, Uvicorn e Pydantic.
+- Pandas, NumPy, Scikit-Learn e Joblib.
+- PyTorch.
+- `python-json-logger`.
+
+Dependências de treino, tracking, testes e relatórios não são instaladas na imagem da API.
 
 ```bash
 docker build -t tech-challenge-churn:latest .

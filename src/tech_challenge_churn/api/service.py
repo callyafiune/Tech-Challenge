@@ -8,8 +8,8 @@ from pathlib import Path
 import pandas as pd
 
 from tech_challenge_churn.config import MODELS_DIR
+from tech_challenge_churn.models.inference import load_mlp_for_inference
 from tech_challenge_churn.models.mlp import predict_proba, to_numpy_array
-from tech_challenge_churn.models.train_mlp import load_mlp_for_inference
 
 
 class InferenceService:

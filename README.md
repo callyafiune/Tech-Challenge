@@ -151,6 +151,10 @@ Rodar API:
 
 ## Docker
 
+A imagem da API instala apenas as dependências de inferência necessárias para `/health` e
+`/predict`: FastAPI, Uvicorn, Pydantic, Pandas, NumPy, Scikit-Learn, Joblib, PyTorch e logging JSON.
+Dependências de treino, tracking, testes e relatórios ficam fora da imagem de serving.
+
 Construir a imagem da API:
 
 ```powershell

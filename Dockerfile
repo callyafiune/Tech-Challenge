@@ -17,7 +17,17 @@ COPY pyproject.toml README.md ./
 COPY src ./src
 
 RUN python -m pip install --upgrade pip setuptools wheel \
-    && python -m pip install .
+    && python -m pip install \
+        fastapi==0.136.0 \
+        joblib==1.5.3 \
+        numpy==2.4.4 \
+        pandas==2.3.3 \
+        pydantic==2.13.2 \
+        python-json-logger==4.1.0 \
+        scikit-learn==1.8.0 \
+        torch==2.11.0 \
+        uvicorn==0.44.0 \
+    && python -m pip install --no-deps .
 
 # Copia apenas os arquivos necessários para servir a API. O .dockerignore remove dados brutos,
 # MLflow, ambientes locais e caches; se models/mlp existir localmente, ele entra na imagem.
